@@ -1,74 +1,51 @@
 # 📊 Análise de Dados com Python - Viagens a Serviço
 
-## Contextualização
+## Sobre o Projeto
 
-Este projeto tem como objetivo transformar dados públicos de Viagens a Serviço do Portal da Transparência do Governo Federal em informações organizadas e úteis para análise.
+Este projeto foi desenvolvido para a disciplina de **Análise de Dados com Python** e tem como objetivo trabalhar com dados públicos de **Viagens a Serviço do Portal da Transparência do Governo Federal**.
 
-Os dados disponibilizados originalmente possuem grande volume e necessitam passar por etapas de extração, tratamento e análise para gerar informações confiáveis para tomada de decisão.
+A proposta foi organizar dados brutos, realizar tratamentos necessários e preparar as informações para análises, utilizando conceitos de **ETL (Extração, Transformação e Análise de Dados)**.
 
-## Objetivo do Projeto
+O projeto utiliza Python, SQL e banco de dados para transformar informações desorganizadas em dados mais preparados para gerar insights.
 
-Construir um pipeline de dados utilizando Python e SQL, seguindo a arquitetura Medallion, realizando as etapas de extração, armazenamento dos dados brutos, tratamento e geração de análises.
+---
 
-O projeto busca responder perguntas de negócio relacionadas aos gastos públicos com viagens, como:
+# 🎯 Objetivo
 
-- Quais são os 5 órgãos com maior custo total?
-- Quais são os 3 destinos com maior custo médio por viagem?
-- Qual foi a viagem de maior duração e seu custo total?
-- Qual tipo de pagamento possui maior valor médio?
-- Qual meio de transporte é mais utilizado nos trechos?
-- Qual UF de destino aparece em mais trechos?
-- Qual órgão realizou o maior gasto total?
+O objetivo principal foi criar um fluxo de dados onde fosse possível:
 
-## Tecnologias Utilizadas
+* Extrair os dados disponibilizados em arquivos CSV;
+* Organizar e preparar as informações;
+* Realizar tratamentos nos dados;
+* Estruturar o banco de dados;
+* Desenvolver análises utilizando Python e SQL.
 
-- Python
-- Pandas
-- SQL
-- MySQL/PostgreSQL
-- Jupyter Notebook
+Com isso, o projeto busca responder perguntas relacionadas aos gastos públicos com viagens, como:
 
-## Arquitetura do Projeto
+* Quais órgãos possuem maiores gastos?
+* Quais destinos apresentam maiores custos?
+* Qual viagem teve maior duração?
+* Quais tipos de pagamento possuem maiores valores?
+* Quais meios de transporte são mais utilizados?
 
-O projeto segue a arquitetura Medallion, organizada em três camadas:
+---
 
-### Raw
+# 🛠️ Tecnologias Utilizadas
 
-Camada responsável pelo armazenamento dos dados originais extraídos dos arquivos CSV, mantendo as informações sem alterações para garantir rastreabilidade.
+* Python
+* Pandas
+* SQL
+* MySQL/PostgreSQL
+* Jupyter Notebook
+* Git e GitHub
 
-Tabelas:
+---
 
-- raw_viagem
-- raw_pagamento
-- raw_passagem
-- raw_trecho
+# 📂 Estrutura do Projeto
 
+O projeto foi organizado seguindo uma sequência de execução:
 
-### Silver
-
-Camada responsável pelo tratamento e organização dos dados.
-
-Nesta etapa são realizadas:
-
-- Conversão de tipos de dados;
-- Tratamento de datas;
-- Conversão de valores numéricos;
-- Criação de chaves primárias e estrangeiras;
-- Aplicação de constraints para garantir integridade dos dados.
-
-Tabelas:
-
-- silver_viagem
-- silver_pagamento
-- silver_passagem
-- silver_trecho
-
-
-### Gold
-
-Camada destinada às análises de negócio, utilizando consultas SQL, agregações e visualizações gráficas para gerar informações estratégicas.
-
-## Estrutura do Projeto
+```
 projeto_viagens/
 
 ├── 0_criar_banco.sql
@@ -79,63 +56,131 @@ projeto_viagens/
 ├── config.py
 ├── .env.example
 ├── requirements.txt
-├── README.md
-│
-└── data/
+└── README.md
+```
 
+---
 
-## Etapas de Desenvolvimento
+# 🔄 Processos do Projeto
 
-### 1 - Extração dos Dados
+## 0_criar_banco.sql
 
-Foi realizada a extração automatizada dos dados disponibilizados em formato ZIP.
+Este arquivo é responsável pela criação da estrutura do banco de dados.
 
-O processo realiza:
+Nele são definidas as tabelas utilizadas no projeto e a organização necessária para armazenar os dados.
 
-- Leitura dos arquivos CSV;
-- Preservação dos dados originais;
-- Tratamento de exceções para evitar falhas durante a execução.
+---
 
+## banco.py
 
-### 2 - Transformação dos Dados
+Responsável pela conexão com o banco de dados.
 
-Nesta etapa os dados passam pelo processo de limpeza e preparação.
+Ele possui as configurações necessárias para que os scripts Python consigam acessar e trabalhar com as informações armazenadas.
 
-Foram realizadas:
+---
 
-- Leitura dos arquivos CSV utilizando Pandas;
-- Padronização dos dados;
-- Conversão de formatos;
-- Preparação para carregamento na camada Silver.
+## config.py
 
+Arquivo destinado às configurações do projeto.
 
-### 3 - Análise dos Dados
+Ele centraliza informações utilizadas pelos scripts, facilitando a organização do código.
 
-Na camada Gold são realizadas análises utilizando SQL e Python para responder perguntas de negócio e gerar visualizações.
+---
 
-## Como Executar o Projeto
+## 1_extrair.py - Extração dos Dados
 
-Instale as dependências:
-  
-  pip install -r requirements.txt
+Nesta etapa acontece a primeira parte do pipeline.
 
-  
-Execute a extração dos dados:
+O processo realiza a extração dos arquivos disponibilizados em formato ZIP e prepara os dados para serem utilizados nas próximas etapas.
 
+Principais atividades:
+
+* Leitura dos arquivos;
+* Extração dos dados;
+* Organização inicial das informações.
+
+---
+
+## 2_transformar.py - Tratamento dos Dados
+
+Nesta etapa os dados passam por uma preparação utilizando Python e Pandas.
+
+São realizadas atividades como:
+
+* Leitura dos arquivos CSV;
+* Organização das informações;
+* Padronização dos dados;
+* Preparação para utilização no banco.
+
+Essa etapa tem como objetivo deixar os dados mais adequados para análise.
+
+---
+
+## 3_analise.ipynb - Análise dos Dados
+
+O notebook é utilizado para explorar os dados e gerar análises.
+
+Nesta etapa são realizadas:
+
+* Consultas;
+* Análises exploratórias;
+* Criação de gráficos;
+* Interpretação dos resultados encontrados.
+
+O objetivo é transformar os dados tratados em informações que possam auxiliar na tomada de decisão.
+
+---
+
+# 📌 Organização dos Dados
+
+O projeto segue o conceito da arquitetura Medallion:
+
+## Raw
+
+Representa os dados originais, mantendo as informações próximas ao formato disponibilizado pela fonte.
+
+## Silver
+
+Representa os dados organizados e preparados após os tratamentos necessários.
+
+## Gold
+
+Representa a etapa de análise, onde os dados são utilizados para gerar informações e indicadores.
+
+---
+
+# ▶️ Como Executar
+
+Instalar as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Executar a extração:
+
+```bash
 python 1_extrair.py
+```
 
-Execute as análises:
+Executar a transformação:
+
+```bash
 python 2_transformar.py
+```
 
-Execute as análises:
+Executar as análises:
+
+Abrir o arquivo:
+
+```
 3_analise.ipynb
+```
 
-## Resultados Esperados
+---
 
-Ao final do pipeline, os dados brutos do Portal da Transparência são transformados em informações organizadas, permitindo análises sobre gastos, órgãos, destinos, pagamentos e transportes relacionados às viagens a serviço.
+# ✅ Conclusão
 
-## Conclusão
+Este projeto possibilitou aplicar conhecimentos de análise de dados, tratamento de informações, banco de dados e programação em Python.
 
-O desenvolvimento deste projeto permitiu aplicar conceitos de Engenharia e Análise de Dados, utilizando técnicas de ETL, tratamento de dados, modelagem relacional e análise exploratória.
-
-Através do pipeline construído, dados públicos em grande volume são transformados em informações mais claras e úteis para apoio à tomada de decisão. 
+Através do desenvolvimento do pipeline, foi possível organizar dados públicos de viagens e preparar as informações para análises mais claras e eficientes.
