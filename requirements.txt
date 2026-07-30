@@ -1,4 +1,8 @@
 pandas
-matplotlib
 mysql-connector-python
-jupyter
+SQLAlchemy
+requests
+matplotlib
+python-dotenv
+notebook
+ipykernel
